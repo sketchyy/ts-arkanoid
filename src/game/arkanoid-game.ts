@@ -12,7 +12,7 @@ export class ArkanoidGame {
     constructor() {
         let actors = [
             new Player(new Vector(20, 460)),
-            new Ball(new Vector(50, 450), new Vector(11, 11)),
+            new Ball(new Vector(50, 450), new Vector(5, 5)),
             ...this.createBricks()
         ]
         this.state = new State(actors);
@@ -20,11 +20,10 @@ export class ArkanoidGame {
     }
 
     public start() {
-        setInterval(() => this.view.draw(this.state.actors), 10);
-    }
-
-    public update(): void {
-
+        setInterval(() => {
+            this.view.draw(this.state.actors);
+            this.state.update(this.view.canvas);
+        }, 10);
     }
 
     private createBricks(): Brick[] {

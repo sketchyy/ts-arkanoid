@@ -8,6 +8,7 @@ export class CanvasView {
     }
 
     draw(actors: Actor[]): void {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         actors.forEach(actor => actor.draw(this.ctx));
     }
 }

@@ -15,7 +15,7 @@ export class Player implements Actor {
         ctx.closePath();
     }
 
-    public update(): void {
+    public update(canvas: HTMLCanvasElement): void {
 
     }
 }
