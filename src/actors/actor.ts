@@ -1,4 +1,7 @@
+import { KeyPressed } from "../game/track-keys";
+import { State } from "../game/state";
+
 export interface Actor {
     draw(cxt: CanvasRenderingContext2D): void;
-    update(canvas: HTMLCanvasElement): void;
+    update(state: State, keys?: KeyPressed): void;
 }

@@ -1,5 +1,6 @@
 import { Vector } from "../common/vector";
 import { Actor } from "./actor";
+import { State } from "../game/state";
 
 export class Brick implements Actor {
     public size: Vector;
@@ -15,8 +16,8 @@ export class Brick implements Actor {
         ctx.closePath();
     }
 
-    public update(canvas: HTMLCanvasElement): void {
-
+    public update(state: State): void {
+        
     }
 }
 

@@ -1,5 +1,6 @@
 import { Vector } from "../common/vector";
 import { Actor } from "./actor";
+import { State } from "../game/state";
 
 export class Ball implements Actor {
     public size: Vector;
@@ -17,16 +18,16 @@ export class Ball implements Actor {
         ctx.closePath();
     }
 
-    public update(canvas: HTMLCanvasElement): void {
-        if (this.pos.x + this.speed.x < 0 || this.pos.x + this.speed.x > canvas.width) {
+    public update(state: State): void {
+        let canvas: HTMLCanvasElement = state.view.canvas;
+
+        if (this.pos.x + this.speed.x < this.radius || this.pos.x + this.speed.x > canvas.width - this.radius) {
             this.speed.x = -this.speed.x;
         }
-        if (this.pos.y + this.speed.y < 0 || this.pos.y + this.speed.y > canvas.height) {
+        if (this.pos.y + this.speed.y < this.radius || this.pos.y + this.speed.y > canvas.height - this.radius) {
             this.speed.y = -this.speed.y;
         }
     
-
-        console.log(this.speed.x + ' ' + this.speed.y)
         this.pos.x += this.speed.x;
         this.pos.y += this.speed.y;
     }

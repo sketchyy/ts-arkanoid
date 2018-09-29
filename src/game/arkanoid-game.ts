@@ -4,25 +4,29 @@ import { Player } from "../actors/player";
 import { Vector } from "../common/vector";
 import { Brick } from "../actors/brick";
 import { Ball } from "../actors/ball";
+import { trackKeys, KeyPressed } from "./track-keys";
 
 export class ArkanoidGame {
     public state: State;
     public view: CanvasView;
+    public keys: KeyPressed;
 
     constructor() {
         let actors = [
             new Player(new Vector(20, 460)),
-            new Ball(new Vector(50, 450), new Vector(5, 5)),
+            new Ball(new Vector(50, 450), new Vector(1, 1)),
             ...this.createBricks()
         ]
-        this.state = new State(actors);
+
         this.view = new CanvasView(<HTMLCanvasElement> document.getElementById('gameCanvas'))
+        this.state = new State(actors, this.view);
+        this.keys = trackKeys(["ArrowLeft", "ArrowRight"]);
     }
 
     public start() {
         setInterval(() => {
             this.view.draw(this.state.actors);
-            this.state.update(this.view.canvas);
+            this.state.update(this.keys);
         }, 10);
     }
 

@@ -1,10 +1,13 @@
 import { Vector } from "../common/vector";
 import { Actor } from "./actor";
+import { State } from "../game/state";
+import { KeyPressed } from "../game/track-keys";
 
 export class Player implements Actor {
     public size: Vector;
+    public speedX: number = 10;
 
-    constructor(public pos: Vector/*, public speed: Vector */) {
+    constructor(public pos: Vector) {
     }
 
     public draw(ctx: CanvasRenderingContext2D): void {
@@ -15,8 +18,13 @@ export class Player implements Actor {
         ctx.closePath();
     }
 
-    public update(canvas: HTMLCanvasElement): void {
-
+    public update(state: State, keys: KeyPressed): void {
+        if (keys["ArrowLeft"] && this.pos.x > 0) {
+            this.pos.x -= this.speedX;
+        } 
+        if (keys["ArrowRight"] && this.pos.x < state.view.canvas.width - this.size.x) {
+            this.pos.x += this.speedX;
+        }
     }
 }
 
