@@ -5,10 +5,17 @@
         .gameCanvas {
             border: 1px lightblue solid;
         }
+        .canvas-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
     </style>
   </head>
   <body>
-    <canvas id="gameCanvas" width="500px" height="500px" class="gameCanvas"></canvas>
+    <div class="canvas-container">
+      <canvas id="gameCanvas" width="500px" height="500px" class="gameCanvas"></canvas>
+    </div>
 
     <script src="./dist/bundle.js"></script>
   </body>

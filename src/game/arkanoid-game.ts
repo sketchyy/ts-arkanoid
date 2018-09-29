@@ -13,8 +13,8 @@ export class ArkanoidGame {
 
     constructor() {
         let actors = [
-            new Player(new Vector(20, 460)),
-            new Ball(new Vector(50, 450), new Vector(1, 1)),
+            new Player(new Vector(20, 485)),
+            new Ball(new Vector(50, 450), new Vector(2, 2)),
             ...this.createBricks()
         ]
 
@@ -23,7 +23,7 @@ export class ArkanoidGame {
         this.keys = trackKeys(["ArrowLeft", "ArrowRight"]);
     }
 
-    public start() {
+    public start(): void {
         setInterval(() => {
             this.view.draw(this.state.actors);
             this.state.update(this.keys);

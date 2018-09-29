@@ -5,9 +5,13 @@ import { KeyPressed } from "../game/track-keys";
 
 export class Player implements Actor {
     public size: Vector;
-    public speedX: number = 10;
+    public speedX: number = 7;
 
     constructor(public pos: Vector) {
+    }
+
+    get type(): string { 
+        return "player"; 
     }
 
     public draw(ctx: CanvasRenderingContext2D): void {
@@ -28,4 +32,4 @@ export class Player implements Actor {
     }
 }
 
-Player.prototype.size = new Vector(100, 15);
+Player.prototype.size = new Vector(100, 5);

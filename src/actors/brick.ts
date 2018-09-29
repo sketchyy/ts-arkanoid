@@ -8,6 +8,10 @@ export class Brick implements Actor {
     constructor(public pos: Vector) {
     }
 
+    get type(): string {
+        return "brick";
+    }
+
     public draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
         ctx.rect(this.pos.x, this.pos.y, this.size.x, this.size.y);
@@ -16,9 +20,7 @@ export class Brick implements Actor {
         ctx.closePath();
     }
 
-    public update(state: State): void {
-        
-    }
+    public update(state: State): void {}
 }
 
 Brick.prototype.size = new Vector(77, 20);
