@@ -3,6 +3,7 @@ import { CanvasView } from "../../view/canvas-view";
 import { Vector } from "../../common/vector";
 import { Level } from "./level";
 import { Brick } from "../../actors/brick";
+import { randomColor } from "../../common/random-color";
 
 
 /* Each level defines it's own set of actors */
@@ -27,11 +28,11 @@ export class BaseLevel extends Level {
         let padTop = 30;
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
-
-                let b = new Brick("brick#" + i + j, new Vector(
-                    (pad + Brick.prototype.size.x) * j + pad, 
-                    padTop + (pad + Brick.prototype.size.y) * i + pad
-                ));
+                let b = new Brick(
+                    "brick#" + i + j, 
+                    new Vector((pad + Brick.prototype.size.x) * j + pad, padTop + (pad + Brick.prototype.size.y) * i + pad),
+                    randomColor()
+                );
                 bricks.push(b);
             }
         }

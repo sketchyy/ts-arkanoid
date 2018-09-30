@@ -15,7 +15,7 @@ export class Ball implements Actor {
     public draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
         ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "lightblue";
+        ctx.fillStyle = "#ff4284";
         ctx.fill();
         ctx.closePath();
     }

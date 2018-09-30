@@ -6,13 +6,13 @@ export class Brick implements Actor {
     public type: string = "brick";
     public size: Vector;
 
-    constructor(public id: string, public pos: Vector) {
+    constructor(public id: string, public pos: Vector, public color: string) {
     }
 
     public draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
         ctx.rect(this.pos.x, this.pos.y, this.size.x, this.size.y);
-        ctx.fillStyle = "#aaaaaa";
+        ctx.fillStyle = this.color;
         ctx.fill();
         ctx.closePath();
     }

@@ -15,10 +15,9 @@ export abstract class Level {
     constructor(public view: CanvasView) {}
 
     createUI(): Actor[] {
-        let borderColor: string = this.view.canvas.style.borderColor;
         return [
-            new Rect("topBorder", new Vector(0, 25), new Vector(this.view.canvas.width, 1), borderColor),
-            new Label("scoreLabel", new Vector(8, 20)),
+            new Rect("topBorder", new Vector(0, 25), new Vector(this.view.canvas.width, 1), "#3a3a39"),
+            new Label("scoreLabel", new Vector(8, 20), "#4c9cff"),
         ];
     }
 
