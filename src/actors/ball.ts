@@ -3,6 +3,7 @@ import { Actor } from "./actor";
 import { State } from "../game/state";
 
 export class Ball implements Actor {
+    public id: string;
     public size: Vector;
     public radius: number;
 
@@ -39,18 +40,19 @@ export class Ball implements Actor {
         }
 
         // Collide wih upper border
-        if (y < this.radius) {
+        if (y < 25 + this.radius) {
             this.speed.y = -this.speed.y;
         }
 
         // Collide with player's paddle
-        if (y > player.pos.y - this.radius) {
-            if (x + this.radius > player.pos.x && x - this.radius < player.pos.x + player.size.x && y > player.pos.y - this.radius) {
-                this.speed.y = -this.speed.y
-            } else {
-                // Collide with floor = game over
-                state.gameOver();
-            } 
+        if (y > player.pos.y - this.radius && y < player.pos.y && 
+            x + this.radius > player.pos.x && x - this.radius < player.pos.x + player.size.x) {
+            this.speed.y = -this.speed.y
+        }
+
+        // Collide with floor = game over
+        if (y > canvas.height) {
+            state.isGameOver = true;
         }
 
         // Calculate new position

@@ -3,15 +3,20 @@ import { KeyPressed } from "./track-keys";
 import { CanvasView } from "../view/canvas-view";
 import { Player } from "../actors/player";
 import { Brick } from "../actors/brick";
-import { Vector } from "../common/vector";
 import { Ball } from "../actors/ball";
+import { Label } from "../actors/label";
 
 export class State {
-    private isGameOver: boolean = false;
+    public isGameWin: boolean = false;
+    public isGameOver: boolean = false;
     private bricks: Brick[];
+    private scoreLabel: Label;
+    private score: number = 0;
 
     constructor(public actors: Actor[], public view: CanvasView) {
         this.bricks = <Brick[]> actors.filter((actor: Actor) => actor.type === "brick");
+        this.scoreLabel = <Label> this.actors.filter((actor: Actor) => actor.id === "scoreLabel")[0];
+        this.updateScore();
     }
 
     public update(keys: KeyPressed): void {
@@ -20,7 +25,7 @@ export class State {
         }
     }
 
-    public isCollidesWithBricks(ball: Ball) {
+    public isCollidesWithBricks(ball: Ball): boolean {
         let removedBrick: Brick = null;
         let result = false;
 
@@ -36,17 +41,21 @@ export class State {
         }
 
         if (removedBrick) {
+            this.score++;
+            this.updateScore();
             this.actors = this.actors.filter((a: Actor) => a !== removedBrick);
             this.bricks = this.bricks.filter((b: Brick) => b !== removedBrick);
+
+            if (this.bricks.length === 0) {
+                this.isGameWin = true;
+            }
         }
 
         return result;
     }
 
-    public gameOver(): void {
-        alert("GAME OVER");
-        this.isGameOver = true;
-        document.location.reload();
+    public updateScore(): void {
+        this.scoreLabel.text = "Score: " + this.score;
     }
 
     public getPlayer(): Player {

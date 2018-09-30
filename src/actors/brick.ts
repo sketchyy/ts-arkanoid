@@ -3,6 +3,7 @@ import { Actor } from "./actor";
 import { State } from "../game/state";
 
 export class Brick implements Actor {
+    public id: string;
     public size: Vector;
 
     constructor(public pos: Vector) {

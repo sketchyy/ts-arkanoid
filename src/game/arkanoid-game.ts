@@ -5,6 +5,8 @@ import { Vector } from "../common/vector";
 import { Brick } from "../actors/brick";
 import { Ball } from "../actors/ball";
 import { trackKeys, KeyPressed } from "./track-keys";
+import { Label } from "../actors/label";
+import { Rect } from "../actors/rect";
 
 export class ArkanoidGame {
     public state: State;
@@ -12,13 +14,16 @@ export class ArkanoidGame {
     public keys: KeyPressed;
 
     constructor() {
+        this.view = new CanvasView(<HTMLCanvasElement> document.getElementById('gameCanvas'));
+
+        let borderColor = this.view.canvas.style.borderColor;
         let actors = [
-            new Player(new Vector(20, 485)),
-            new Ball(new Vector(50, 450), new Vector(2, 2)),
+            new Rect(new Vector(0, 25), new Vector(this.view.canvas.width, 1), borderColor),
+            new Label("scoreLabel", new Vector(8, 20)),
+            new Player(new Vector(20, 465), new Vector(100, 15)),
+            new Ball(new Vector(50, 450), new Vector(3, 3)),
             ...this.createBricks()
         ]
-
-        this.view = new CanvasView(<HTMLCanvasElement> document.getElementById('gameCanvas'))
         this.state = new State(actors, this.view);
         this.keys = trackKeys(["ArrowLeft", "ArrowRight"]);
     }
@@ -27,6 +32,18 @@ export class ArkanoidGame {
         setInterval(() => {
             this.view.draw(this.state.actors);
             this.state.update(this.keys);
+            
+            if (this.state.isGameWin) {
+                this.view.draw(this.state.actors);
+                this.state.isGameWin = false;
+                setTimeout(this.gameWin, 100);
+            }
+            if (this.state.isGameOver) {
+                this.view.draw(this.state.actors);
+                this.state.isGameOver = false;
+                setTimeout(this.gameOver, 100);
+            }
+
         }, 10);
     }
 
@@ -48,5 +65,15 @@ export class ArkanoidGame {
         }
 
         return bricks;
+    }
+
+    private gameWin(): void {
+        alert("Victory! You have destroyed all bricks!");
+        document.location.reload();
+    }
+
+    private gameOver(): void {
+        alert("GAME OVER");
+        document.location.reload();
     }
 }

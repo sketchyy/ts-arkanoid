@@ -4,10 +4,10 @@ import { State } from "../game/state";
 import { KeyPressed } from "../game/track-keys";
 
 export class Player implements Actor {
-    public size: Vector;
+    public id: string;
     public speedX: number = 7;
 
-    constructor(public pos: Vector) {
+    constructor(public pos: Vector, public size: Vector) {
     }
 
     get type(): string { 
@@ -31,5 +31,3 @@ export class Player implements Actor {
         }
     }
 }
-
-Player.prototype.size = new Vector(100, 5);
