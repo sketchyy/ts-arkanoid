@@ -15,6 +15,12 @@ export class Player implements Actor {
         ctx.fillStyle = "#4c9cff";
         ctx.fill();
         ctx.closePath();
+        
+        ctx.beginPath();
+        ctx.rect(this.pos.x, this.pos.y, this.size.x, 2);
+        ctx.fillStyle = "#000000";
+        ctx.fill();
+        ctx.closePath();
     }
 
     public update(state: State, keys: KeyPressed): void {

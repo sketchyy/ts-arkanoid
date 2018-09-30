@@ -22,10 +22,14 @@ export abstract class Level {
     }
 
     createPlayer(): Actor {
-        return new Player("player", new Vector(20, 465), new Vector(100, 15));
+        let x = this.view.canvas.width / 2 - 50;
+        return new Player("player", new Vector(x, 465), new Vector(100, 15));
     }
 
     createBall(): Actor {
-        return new Ball("ball", new Vector(50, 450), new Vector(3, 3));
+        let x = Math.random() * (this.view.canvas.width - 50);
+        let y = 200;
+        let speed = new Vector((Math.random() > 0.5 ? 3 : -3), 3);
+        return new Ball("ball", new Vector(x, y), new Vector(3, 3));
     }
 }

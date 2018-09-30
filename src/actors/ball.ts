@@ -22,7 +22,7 @@ export class Ball implements Actor {
 
     public update(state: State): void {
         let canvas: HTMLCanvasElement = state.view.canvas;
-        let topBorderY = (<Rect> state.findActor("topBorder")).pos.y;
+        let topBorderY = (<Rect>state.findActor("topBorder")).pos.y;
         let x = this.pos.x;
         let y = this.pos.y;
         let player = state.getPlayer();
@@ -43,7 +43,7 @@ export class Ball implements Actor {
         }
 
         // Collide with player's paddle
-        if (y > player.pos.y - this.radius && y < player.pos.y && 
+        if (y + this.speed.y > player.pos.y - this.radius && y + this.speed.y < player.pos.y &&
             x + this.radius > player.pos.x && x - this.radius < player.pos.x + player.size.x) {
             this.speed.y = -this.speed.y
         }
