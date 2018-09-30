@@ -3,14 +3,10 @@ import { Actor } from "./actor";
 import { State } from "../game/state";
 
 export class Brick implements Actor {
-    public id: string;
+    public type: string = "brick";
     public size: Vector;
 
-    constructor(public pos: Vector) {
-    }
-
-    get type(): string {
-        return "brick";
+    constructor(public id: string, public pos: Vector) {
     }
 
     public draw(ctx: CanvasRenderingContext2D): void {
@@ -24,4 +20,5 @@ export class Brick implements Actor {
     public update(state: State): void {}
 }
 
+/* Here we use single Vector object for all bricks. */
 Brick.prototype.size = new Vector(77, 20);

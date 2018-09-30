@@ -5,16 +5,20 @@ import { Player } from "../actors/player";
 import { Brick } from "../actors/brick";
 import { Ball } from "../actors/ball";
 import { Label } from "../actors/label";
+import { Level } from "./levels/level";
 
+/* State contains all game actors and manipulates with them. */
 export class State {
     public isGameWin: boolean = false;
     public isGameOver: boolean = false;
+    public actors: Actor[];
     private bricks: Brick[];
     private scoreLabel: Label;
     private score: number = 0;
 
-    constructor(public actors: Actor[], public view: CanvasView) {
-        this.bricks = <Brick[]> actors.filter((actor: Actor) => actor.type === "brick");
+    constructor(public level: Level, public view: CanvasView) {
+        this.actors = level.actors;
+        this.bricks = <Brick[]> level.actors.filter((actor: Actor) => actor.type === "brick");
         this.scoreLabel = <Label> this.actors.filter((actor: Actor) => actor.id === "scoreLabel")[0];
         this.updateScore();
     }
@@ -60,5 +64,9 @@ export class State {
 
     public getPlayer(): Player {
         return <Player> this.actors.filter((actor: Actor) => actor.type === "player")[0];
+    }
+
+    public findActor(id: string): Actor {
+        return this.actors.filter((actor: Actor) => actor.id === id)[0]
     }
 }

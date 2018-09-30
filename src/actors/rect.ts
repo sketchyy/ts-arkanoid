@@ -3,11 +3,10 @@ import { State } from "../game/state";
 import { Vector } from "../common/vector";
 
 export class Rect implements Actor {
-    id: string;    
-    type: string = "rect";
+    public type: string = "rect";
 
-    constructor(public pos: Vector, public size: Vector, public color: string) {}
-    
+    constructor(public id: string, public pos: Vector, public size: Vector, public color: string) { }
+
     draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
         ctx.rect(this.pos.x, this.pos.y, this.size.x, this.size.y);
@@ -16,5 +15,5 @@ export class Rect implements Actor {
         ctx.closePath();
     }
 
-    update(state: State): void {}
+    update(state: State): void { }
 }

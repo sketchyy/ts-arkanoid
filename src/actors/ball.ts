@@ -1,18 +1,15 @@
 import { Vector } from "../common/vector";
 import { Actor } from "./actor";
 import { State } from "../game/state";
+import { Rect } from "./rect";
 
 export class Ball implements Actor {
-    public id: string;
+    public type: string = "ball";
     public size: Vector;
     public radius: number;
 
-    constructor(public pos: Vector, public speed: Vector) {
+    constructor(public id: string, public pos: Vector, public speed: Vector) {
         this.radius = 10;
-    }
-
-    get type(): string {
-        return "ball";
     }
 
     public draw(ctx: CanvasRenderingContext2D): void {
@@ -25,6 +22,7 @@ export class Ball implements Actor {
 
     public update(state: State): void {
         let canvas: HTMLCanvasElement = state.view.canvas;
+        let topBorderY = (<Rect> state.findActor("topBorder")).pos.y;
         let x = this.pos.x;
         let y = this.pos.y;
         let player = state.getPlayer();
@@ -40,7 +38,7 @@ export class Ball implements Actor {
         }
 
         // Collide wih upper border
-        if (y < 25 + this.radius) {
+        if (y < topBorderY + this.radius) {
             this.speed.y = -this.speed.y;
         }
 
